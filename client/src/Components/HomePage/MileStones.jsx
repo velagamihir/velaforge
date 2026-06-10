@@ -2,24 +2,28 @@ import { useEffect, useRef, useState } from 'react';
 
 const milestones = [
   {
+    id: 1,
     year: '2024',
     label: '24',
     title: 'The Beginning',
     desc: 'Started as a passion project, building websites for local businesses',
   },
   {
+    id: 2,
     year: '2024',
     label: '24',
     title: 'Team Expansion',
     desc: 'Grew from solo developer to a talented team of creators',
   },
   {
+    id: 3,
     year: '2025',
     label: '25',
     title: 'First Major Project',
     desc: "Delivered a complex web application that transformed a client's business",
   },
   {
+    id: 4,
     year: '2026',
     label: '26',
     title: 'VelaForge Today',
@@ -65,7 +69,7 @@ function MilestoneCard({ item, index }) {
     >
       {/* Timeline spine */}
       <div className="flex shrink-0 flex-col items-center">
-        <div className="bg-primary mb-5 flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold text-white shadow-md shadow-black/10 transition-all duration-500 hover:scale-110 dark:shadow-black/40">
+        <div className="bg-accent mb-5 flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold text-white shadow-md shadow-black/10 transition-all duration-500 hover:scale-110 dark:shadow-black/40">
           {item.label}
         </div>
 
@@ -78,7 +82,7 @@ function MilestoneCard({ item, index }) {
       <div
         className={`mb-5 flex-1 rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-white/10 dark:bg-[#0d1117]`}
       >
-        <span className="text-primary text-xs font-semibold tracking-wider uppercase">
+        <span className="text-accent-dark text-xs font-semibold tracking-wider uppercase">
           {item.year}
         </span>
 
@@ -155,7 +159,7 @@ export default function OurStory() {
         {/* Timeline */}
         <div className="w-full lg:w-7/12">
           {milestones.map((item, i) => (
-            <MilestoneCard key={item.year} item={item} index={i} />
+            <MilestoneCard key={item.id} item={item} index={i} />
           ))}
         </div>
       </div>

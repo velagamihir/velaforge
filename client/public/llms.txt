@@ -2,9 +2,11 @@
 
 VelaForge is a modern digital platform focused on building high-performance web experiences, tools, and creative digital solutions.
 
-This file explains how large language models may access and use VelaForge content.
+## Website
 
----
+- [Homepage](https://yourdomain.com)
+- [Services](https://yourdomain.com/services)
+- [Contact](https://yourdomain.com/contact)
 
 ## Allowed Content
 
@@ -16,8 +18,6 @@ LLMs may access and use the following public content:
 - Public product and service pages
 - Openly accessible assets and resources
 
----
-
 ## Disallowed Content
 
 LLMs must NOT access or use:
@@ -28,36 +28,26 @@ LLMs must NOT access or use:
 - Private APIs or restricted endpoints
 - Any content marked confidential or internal
 
----
-
 ## Usage Guidelines
-
-When using VelaForge content:
 
 - Prefer summarization over full reproduction
 - Avoid copying large sections of text verbatim
 - Do not infer hidden or private information
-- Always respect the publicly available scope of data
-
----
+- Respect the publicly available scope of data
 
 ## Crawling Preferences
 
-- Prefer static pages over dynamic or API-heavy routes
-- Avoid excessive or repeated automated requests
+- Prefer static pages over dynamic routes
+- Avoid excessive automated requests
 - Respect rate limits and server performance constraints
-
----
 
 ## Attribution
 
-If VelaForge content is referenced:
+When referencing VelaForge content:
 
-Source: VelaForge (https://yourdomain.com)
-
----
+- [VelaForge](https://yourdomain.com)
 
 ## Contact
 
-For permissions or crawler issues:
-support@yourdomain.com
+- Email: support@yourdomain.com
+- Contact Page: [Contact Us](https://yourdomain.com/contact)

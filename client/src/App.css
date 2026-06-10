@@ -1,6 +1,23 @@
 @import 'tailwindcss';
 @theme {
-  --color-primary: #2563eb;
-  --color-bg-dark: #131c2f;
+  --color-primary: #1875bb; /* Main blue */
+  --color-primary-light: #25bbed; /* Cyan accent */
+  --color-accent: #b85c00; /* Orange */
+  --color-accent-dark: #c96a0d; /* Darker orange for hover */
+  --color-bg-dark: #000000; /* Logo background */
+  --color-surface: #0d1b2a; /* Optional dark navy sections */
+  --color-text-light: #f8fafc; /* Light text */
 }
+
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Prevent horizontal overflow on mobile */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* * {
+  outline: 1px solid red !important;
+} */

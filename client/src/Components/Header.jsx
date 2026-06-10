@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-
+import { useCallback, useEffect, useRef, useState } from 'react';
+//logo import
+import Logo from '../assets/images/Logos/logo.avif';
+import WhiteLettersLogo from '../assets/images/Logos/WhiteLettersLogo.avif';
 const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 // Sun icon for light mode
@@ -85,11 +87,11 @@ export default function Header() {
 
   // Initialise theme from localStorage or system preference
   useEffect(() => {
-    const stored = localStorage.getItem("vela-theme");
+    const stored = localStorage.getItem('vela-theme');
     if (stored) {
-      setIsDark(stored === "dark");
+      setIsDark(stored === 'dark');
     } else {
-      setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
   }, []);
 
@@ -97,18 +99,18 @@ export default function Header() {
   useEffect(() => {
     const root = document.documentElement;
     if (isDark) {
-      root.classList.add("dark");
+      root.classList.add('dark');
     } else {
-      root.classList.remove("dark");
+      root.classList.remove('dark');
     }
-    localStorage.setItem("vela-theme", isDark ? "dark" : "light");
+    localStorage.setItem('vela-theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
   // Scroll shadow
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   // Close menu on outside click
@@ -123,27 +125,27 @@ export default function Header() {
         setMenuOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleOutside);
-    return () => document.removeEventListener("mousedown", handleOutside);
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
   }, [menuOpen]);
 
   // Close menu on Escape key
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "Escape" && menuOpen) {
+      if (e.key === 'Escape' && menuOpen) {
         setMenuOpen(false);
         menuButtonRef.current?.focus();
       }
     };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
   }, [menuOpen]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [menuOpen]);
 
@@ -152,96 +154,50 @@ export default function Header() {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   return (
-    <>
-      {/* Skip-to-content link for keyboard / screen-reader users */}
-      <a
-        href="#main-content"
-        className="
-          sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-9999
-          rounded-md px-4 py-2 text-sm font-semibold
-          bg-indigo-600 text-white
-          outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600
-        "
-      >
-        Skip to main content
-      </a>
-
+    <div className="w-full">
       <header
-        className={`
-          fixed top-0 left-0 right-0 z-50
-          transition-all duration-300 ease-in-out
-          ${
-            isDark
-              ? scrolled
-                ? "bg-[#0d1117]/95 shadow-[0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-md"
-                : "bg-[#0d1117]"
-              : scrolled
-                ? "bg-white/95 shadow-[0_1px_0_0_rgba(0,0,0,0.08)] backdrop-blur-md"
-                : "bg-white border-b border-gray-100"
-          }
-        `}
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+        className={`fixed inset-x-0 top-0 z-50 overflow-x-hidden transition-all duration-300 ease-in-out ${
+          isDark
+            ? scrolled
+              ? 'bg-surface shadow-[0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-md'
+              : 'bg-[#0d1117]'
+            : scrolled
+              ? 'bg-white/95 shadow-[0_1px_0_0_rgba(0,0,0,0.08)] backdrop-blur-md'
+              : 'border-b border-gray-100 bg-white'
+        }`}
         role="banner"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-15 items-center justify-between gap-6">
-            {/* ── Logo ─────────────────────────────────────────── */}
+        <div className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="flex h-14 items-center justify-between gap-2 sm:h-15 sm:gap-4 lg:gap-6">
             <a
               href="/"
-              className="
-                flex shrink-0 items-center gap-2.5
-                rounded-md
-                outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2
-                focus-visible:ring-offset-transparent
-              "
-              aria-label="VelaForge – go to homepage"
+              className="flex shrink-0 items-center gap-2.5 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              aria-label="VelaForge - go to homepage"
             >
               {/* Logo mark */}
-              <span
-                className="
-                  flex h-8 w-8 items-center justify-center
-                  rounded-lg bg-indigo-600 text-white
-                  text-[13px] font-bold leading-none select-none
-                "
-                aria-hidden="true"
-              >
-                V
-              </span>
-
-              {/* Brand name */}
-              <span
-                className={`
-                  text-[17px] font-semibold tracking-[-0.01em]
-                  transition-colors duration-200
-                  ${isDark ? "text-indigo-400" : "text-indigo-600"}
-                `}
-              >
-                VelaForge
-              </span>
+              <img
+                src={isDark ? WhiteLettersLogo : Logo}
+                alt="Company logo"
+                width="150"
+                height="56"
+                className="h-8 w-auto max-w-30 sm:h-9 sm:max-w-37.5 lg:h-10 lg:max-w-none"
+              />
             </a>
-
             {/* ── Desktop nav ──────────────────────────────────── */}
             <nav
               aria-label="Primary navigation"
-              className="hidden md:flex md:items-center md:gap-1"
+              className="hidden md:flex md:items-center md:gap-0.5 lg:gap-1"
             >
               {NAV_LINKS.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
-                  className={`
-                    relative px-3.5 py-1.5
-                    text-sm font-medium tracking-wide
-                    rounded-md
-                    transition-colors duration-150
-                    outline-none
-                    focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2
-                    focus-visible:ring-offset-transparent
-                    ${
-                      isDark
-                        ? "text-gray-300 hover:text-white hover:bg-white/6"
-                        : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-                    }
-                  `}
+                  className={`relative rounded-md px-2.5 py-1.5 text-sm font-medium tracking-wide transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:px-3.5 ${
+                    isDark
+                      ? 'text-gray-300 hover:bg-white/6 hover:text-white'
+                      : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
+                  }`}
                 >
                   {label}
                 </a>
@@ -255,22 +211,14 @@ export default function Header() {
                 type="button"
                 onClick={toggleTheme}
                 aria-label={
-                  isDark ? "Switch to light mode" : "Switch to dark mode"
+                  isDark ? 'Switch to light mode' : 'Switch to dark mode'
                 }
                 aria-pressed={isDark}
-                className={`
-                  flex h-9 w-9 items-center justify-center
-                  rounded-md
-                  transition-colors duration-150
-                  outline-none
-                  focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2
-                  focus-visible:ring-offset-transparent
-                  ${
-                    isDark
-                      ? "text-gray-400 hover:text-white hover:bg-white/6"
-                      : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-                  }
-                `}
+                className={`flex h-10 w-10 items-center justify-center rounded-md transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-9 sm:w-9 ${
+                  isDark
+                    ? 'text-gray-400 hover:bg-white/6 hover:text-white'
+                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
+                } `}
               >
                 {isDark ? (
                   <SunIcon className="h-4.5 w-4.5" />
@@ -285,23 +233,15 @@ export default function Header() {
                 type="button"
                 onClick={toggleMenu}
                 aria-label={
-                  menuOpen ? "Close navigation menu" : "Open navigation menu"
+                  menuOpen ? 'Close navigation menu' : 'Open navigation menu'
                 }
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"
-                className={`
-                  flex h-9 w-9 items-center justify-center
-                  rounded-md md:hidden
-                  transition-colors duration-150
-                  outline-none
-                  focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2
-                  focus-visible:ring-offset-transparent
-                  ${
-                    isDark
-                      ? "text-gray-400 hover:text-white hover:bg-white/6"
-                      : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
-                  }
-                `}
+                className={`flex h-10 w-10 items-center justify-center rounded-md transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-9 sm:w-9 md:hidden ${
+                  isDark
+                    ? 'text-gray-400 hover:bg-white/6 hover:text-white'
+                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
+                } `}
               >
                 <MenuIcon open={menuOpen} className="h-5 w-5" />
               </button>
@@ -316,40 +256,28 @@ export default function Header() {
           role="dialog"
           aria-label="Navigation menu"
           aria-modal="true"
-          hidden={!menuOpen}
-          className={`
-            md:hidden
-            border-t
-            transition-all duration-200 ease-in-out
-            ${
-              isDark
-                ? "bg-[#0d1117] border-white/6"
-                : "bg-white border-gray-100"
-            }
-            ${menuOpen ? "block" : "hidden"}
-          `}
+          className={`w-full overflow-hidden border-t transition-all duration-300 ease-in-out md:hidden ${
+            isDark ? 'border-white/6 bg-[#0d1117]' : 'border-gray-100 bg-white'
+          } ${
+            menuOpen
+              ? 'max-h-96 opacity-100'
+              : 'pointer-events-none max-h-0 opacity-0'
+          }`}
         >
           <nav
             aria-label="Mobile navigation"
-            className="mx-auto max-w-7xl px-4 py-3 flex flex-col gap-0.5"
+            className="mx-auto flex max-w-7xl flex-col gap-0.5 px-3 py-3 sm:px-6"
           >
             {NAV_LINKS.map(({ label, href }) => (
               <a
                 key={label}
                 href={href}
                 onClick={closeMenu}
-                className={`
-                  block px-3 py-2.5
-                  text-sm font-medium rounded-md
-                  transition-colors duration-150
-                  outline-none
-                  focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset
-                  ${
-                    isDark
-                      ? "text-gray-300 hover:text-white hover:bg-white/6"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  }
-                `}
+                className={`block rounded-md px-3 py-3 text-base font-medium transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset sm:text-sm ${
+                  isDark
+                    ? 'text-gray-300 hover:bg-white/6 hover:text-white'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                }`}
               >
                 {label}
               </a>
@@ -357,6 +285,6 @@ export default function Header() {
           </nav>
         </div>
       </header>
-    </>
+    </div>
   );
 }
