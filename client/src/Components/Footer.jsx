@@ -5,6 +5,29 @@ import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md';
 import Logo from '../assets/images/Logos/logo.avif';
 import WhiteLettersLogo from '../assets/images/Logos/WhiteLettersLogo.avif';
 export default function Footer() {
+  //quick links
+  const quickLinks = [
+    {
+      name: 'About Us',
+      url: '#about',
+    },
+    {
+      name: 'Services',
+      url: '/industries',
+    },
+    {
+      name: 'Portfolio',
+      url: '#portfolio',
+    },
+    {
+      name: 'Testimonials',
+      url: '#testimonials',
+    },
+    {
+      name: 'Contact',
+      url: '#contact',
+    },
+  ];
   return (
     <footer className="dark:bg-bg-dark border-t border-gray-200 bg-white pt-8 pb-4 font-sans sm:pt-12 sm:pb-6 dark:border-none">
       <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
@@ -57,19 +80,13 @@ export default function Footer() {
                 Quick Links
               </p>
               <ul className="flex flex-col gap-2 sm:gap-3">
-                {[
-                  'About Us',
-                  'Services',
-                  'Portfolio',
-                  'Testimonials',
-                  'Contact',
-                ].map((link) => (
+                {quickLinks.map((link) => (
                   <li key={link}>
                     <a
-                      href="#"
+                      href={link.url}
                       className="text-xs text-gray-600 transition-colors duration-200 hover:text-indigo-600 sm:text-sm dark:text-gray-400 dark:hover:text-indigo-400"
                     >
-                      {link}
+                      {link.name}
                     </a>
                   </li>
                 ))}
