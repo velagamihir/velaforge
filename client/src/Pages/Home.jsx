@@ -187,7 +187,6 @@ const Home = () => {
               </div>
 
               <div className="mb-10 w-full max-w-xl border-t border-gray-200 dark:border-white/10" />
-
               {/* Stats */}
               <dl className="flex flex-wrap gap-x-8 gap-y-6">
                 {[

@@ -4,7 +4,7 @@ import Logo from '../assets/images/Logos/logo.avif';
 import WhiteLettersLogo from '../assets/images/Logos/WhiteLettersLogo.avif';
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
+  { label: 'Services', href: '/industries' },
   { label: 'Projects', href: '#projects' },
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact', href: '#contact' },
@@ -79,7 +79,7 @@ function MenuIcon({ open, className }) {
 }
 
 export default function Header() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef(null);
@@ -128,7 +128,6 @@ export default function Header() {
     document.addEventListener('mousedown', handleOutside);
     return () => document.removeEventListener('mousedown', handleOutside);
   }, [menuOpen]);
-
   // Close menu on Escape key
   useEffect(() => {
     const onKey = (e) => {

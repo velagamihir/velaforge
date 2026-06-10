@@ -78,9 +78,9 @@ export default function Footer() {
 
             {/* Services */}
             <div>
-              <h4 className="mb-4 text-xs font-bold tracking-wide text-gray-900 uppercase sm:text-sm dark:text-white">
+              <p className="mb-4 text-xs font-bold tracking-wide text-gray-900 uppercase sm:text-sm dark:text-white">
                 Services
-              </h4>
+              </p>
               <ul className="flex flex-col gap-2 sm:gap-3">
                 {[
                   'Website Development',
@@ -104,9 +104,9 @@ export default function Footer() {
 
           {/* Contact Information */}
           <div className="col-span-1 sm:col-span-2 lg:col-span-1">
-            <h4 className="mb-4 text-xs font-bold tracking-wide text-gray-900 uppercase sm:text-sm dark:text-white">
+            <p className="mb-4 text-xs font-bold tracking-wide text-gray-900 uppercase sm:text-sm dark:text-white">
               Contact Info
-            </h4>
+            </p>
             <div className="flex flex-col gap-3 sm:gap-4">
               <div className="flex items-start gap-2 sm:gap-3">
                 <MdEmail
