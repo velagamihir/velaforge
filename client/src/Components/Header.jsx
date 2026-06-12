@@ -11,15 +11,7 @@ import { cn } from './../lib/utils';
 //logo imports
 import Logo from '../assets/images/Logos/logo.avif';
 import WhiteLettersLogo from '../assets/images/Logos/WhiteLettersLogo.avif';
-// ─── Hardcoded nav items ───────────────────────────────────────────────────────
-const NAV_ITEMS = [
-  { name: 'Home', link: '/' },
-  { name: 'About', link: '#about' },
-  { name: 'Services', link: '/industries' },
-  { name: 'Pricing', link: '#pricing' },
-  { name: 'Contact', link: '/contact' },
-];
-
+import { NAV_ITEMS } from '../data/NAV_ITEMS';
 // ─── Theme Toggle ─────────────────────────────────────────────────────────────
 const ThemeToggle = ({ className, dark, setDark }) => {
   useEffect(() => {

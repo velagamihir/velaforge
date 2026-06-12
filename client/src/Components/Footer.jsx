@@ -1,33 +1,12 @@
 //icon imports
-import { FaLinkedinIn } from 'react-icons/fa';
-import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md';
+import { FaLinkedinIn } from "react-icons/fa";
+import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
 //logo import
-import Logo from '../assets/images/Logos/logo.avif';
-import WhiteLettersLogo from '../assets/images/Logos/WhiteLettersLogo.avif';
+import Logo from "../assets/images/Logos/logo.avif";
+import WhiteLettersLogo from "../assets/images/Logos/WhiteLettersLogo.avif";
+import { NAV_ITEMS } from "../data/NAV_ITEMS.js";
 export default function Footer() {
   //quick links
-  const quickLinks = [
-    {
-      name: 'About Us',
-      url: '#about',
-    },
-    {
-      name: 'Services',
-      url: '/industries',
-    },
-    {
-      name: 'Portfolio',
-      url: '#portfolio',
-    },
-    {
-      name: 'Testimonials',
-      url: '#testimonials',
-    },
-    {
-      name: 'Contact',
-      url: '#contact',
-    },
-  ];
   return (
     <footer className="dark:bg-bg-dark border-t border-gray-200 bg-white pt-8 pb-4 font-sans sm:pt-12 sm:pb-6 dark:border-none">
       <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
@@ -39,11 +18,15 @@ export default function Footer() {
               <img
                 src={Logo}
                 alt="logo of the company in the footer"
+                width="200" // Add this (use your actual pixel width)
+                height="80" // Add this (use your actual pixel height)
                 className="block h-16 w-auto sm:h-20 dark:hidden"
               />
               <img
                 src={WhiteLettersLogo}
                 alt="Logo of the company in white letters for better visibility in dark mode"
+                width="200" // Add this
+                height="80" // Add this
                 className="hidden h-16 w-auto sm:h-20 dark:block"
               />
             </div>
@@ -55,7 +38,7 @@ export default function Footer() {
               {[
                 {
                   icon: <FaLinkedinIn size={16} />,
-                  href: 'https://www.linkedin.com/in/velaforge-technologies-6844b5415/',
+                  href: "https://www.linkedin.com/in/velaforge-technologies-6844b5415/",
                 },
               ].map((social, i) => (
                 <a
@@ -80,10 +63,10 @@ export default function Footer() {
                 Quick Links
               </p>
               <ul className="flex flex-col gap-2 sm:gap-3">
-                {quickLinks.map((link) => (
+                {NAV_ITEMS.map((link) => (
                   <li key={link}>
                     <a
-                      href={link.url}
+                      href={link.link}
                       className="text-xs text-gray-600 transition-colors duration-200 hover:text-indigo-600 sm:text-sm dark:text-gray-400 dark:hover:text-indigo-400"
                     >
                       {link.name}
@@ -100,11 +83,11 @@ export default function Footer() {
               </p>
               <ul className="flex flex-col gap-2 sm:gap-3">
                 {[
-                  'Website Development',
-                  'Web Applications',
-                  'UI/UX Design',
-                  'E-Commerce',
-                  'Maintenance',
+                  "Website Development",
+                  "Web Applications",
+                  "UI/UX Design",
+                  "E-Commerce",
+                  "Maintenance",
                 ].map((service) => (
                   <li key={service}>
                     <a
@@ -180,7 +163,7 @@ export default function Footer() {
         {/* Divider + Copyright */}
         <div className="border-t border-gray-200 pt-4 text-center sm:pt-6">
           <p className="text-xs text-gray-600 sm:text-sm">
-            © 2026 VelaForge Technologies. All rights reserved.{' '}
+            © 2026 VelaForge Technologies. All rights reserved.{" "}
             <span className="text-indigo-600">
               Crafted with passion and innovation.
             </span>
