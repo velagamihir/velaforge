@@ -22,7 +22,8 @@ import {
 import { useEffect, useRef, useState } from 'react';
 //components import
 import Footer from '../Components/Footer';
-import Header from '../Components/Header';
+import AppNavbar from '../Components/Header';
+
 //questions for the faq
 
 const faqItems = [
@@ -225,10 +226,10 @@ export default function IndustriesSection() {
 
   return (
     <main className="bg-light-bg">
-      <Header />
+      <AppNavbar />
       <section
         aria-labelledby="industries-heading"
-        className="dark:bg-surface mt-10 flex min-h-screen flex-col items-center bg-linear-to-b from-[#E2EFF7] to-[#F0F4F8] px-6 pt-12 pb-10 dark:bg-none"
+        className="dark:bg-surface flex min-h-screen flex-col items-center bg-linear-to-b from-[#E2EFF7] to-[#F0F4F8] px-6 pt-12 pb-10 dark:bg-none"
       >
         {/* Eyebrow pill */}
         <div className="dark:text-primary text-primary dark:bg-surface border-primary mb-6 rounded-full border bg-white/60 px-5 py-1.5 text-[0.7rem] font-semibold tracking-widest uppercase backdrop-blur-sm">

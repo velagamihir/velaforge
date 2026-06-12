@@ -73,7 +73,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links & Services Wrapper */}
-          <div className="col-span-1 grid grid-cols-2 gap-6 sm:col-span-1 sm:grid-cols-1 sm:gap-0 lg:col-span-2 lg:grid-cols-2 lg:gap-12">
+          <div className="col-span-1 grid grid-cols-2 gap-6 sm:col-span-2 sm:grid-cols-3 sm:gap-0 lg:col-span-2 lg:grid-cols-2 lg:gap-12">
             {/* Quick Links */}
             <div>
               <p className="mb-4 text-xs font-bold tracking-wide text-gray-900 uppercase sm:text-sm dark:text-white">

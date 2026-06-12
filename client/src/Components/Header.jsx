@@ -1,289 +1,257 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-//logo import
+'use client';
+import { IconMenu2, IconMoon, IconSun, IconX } from '@tabler/icons-react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { cn } from './../lib/utils';
+//logo imports
 import Logo from '../assets/images/Logos/logo.avif';
 import WhiteLettersLogo from '../assets/images/Logos/WhiteLettersLogo.avif';
-const NAV_LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '/industries' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Contact', href: '#contact' },
+// ─── Hardcoded nav items ───────────────────────────────────────────────────────
+const NAV_ITEMS = [
+  { name: 'Home', link: '/' },
+  { name: 'About', link: '#about' },
+  { name: 'Services', link: '/industries' },
+  { name: 'Pricing', link: '#pricing' },
+  { name: 'Contact', link: '/contact' },
 ];
 
-// Sun icon for light mode
-function SunIcon({ className }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-    </svg>
-  );
-}
+// ─── Theme Toggle ─────────────────────────────────────────────────────────────
+const ThemeToggle = ({ className, dark, setDark }) => {
+  useEffect(() => {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    const isDark = stored ? stored === 'dark' : prefersDark;
+    setDark(isDark);
+    document.documentElement.classList.toggle('dark', isDark);
+  }, []);
 
-// Moon icon for dark mode
-function MoonIcon({ className }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-    </svg>
-  );
-}
+  const toggle = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('theme', next ? 'dark' : 'light');
+  };
 
-// Hamburger / Close icon
-function MenuIcon({ open, className }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      {open ? (
-        <>
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </>
-      ) : (
-        <>
-          <line x1="4" y1="8" x2="20" y2="8" />
-          <line x1="4" y1="16" x2="20" y2="16" />
-        </>
+    <motion.button
+      onClick={toggle}
+      whileTap={{ scale: 0.85 }}
+      whileHover={{ scale: 1.1 }}
+      aria-label="Toggle dark mode"
+      className={cn(
+        'relative flex h-8 w-8 items-center justify-center rounded-full',
+        'bg-gray-100 text-gray-700 hover:bg-gray-200',
+        'dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700',
+        'transition-colors duration-200',
+        className
       )}
-    </svg>
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        {dark ? (
+          <motion.span
+            key="sun"
+            initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute"
+          >
+            <IconSun size={16} />
+          </motion.span>
+        ) : (
+          <motion.span
+            key="moon"
+            initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
+            transition={{ duration: 0.2 }}
+            className="absolute"
+          >
+            <IconMoon size={16} />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </motion.button>
   );
-}
+};
 
-export default function Header() {
-  const [isDark, setIsDark] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const menuRef = useRef(null);
-  const menuButtonRef = useRef(null);
+// ─── Internal primitives (not exported) ───────────────────────────────────────
+const NavBody = ({ children, className, visible }) => (
+  <motion.div
+    animate={{
+      backdropFilter: visible ? 'blur(10px)' : 'none',
+      boxShadow: visible
+        ? '0 0 24px rgba(34,42,53,0.06),0 1px 1px rgba(0,0,0,0.05),0 0 0 1px rgba(34,42,53,0.04),0 0 4px rgba(34,42,53,0.08),0 16px 68px rgba(47,48,55,0.05),0 1px 0 rgba(255,255,255,0.1) inset'
+        : 'none',
+      width: visible ? '40%' : '100%',
+      y: visible ? 20 : 0,
+    }}
+    transition={{ type: 'spring', stiffness: 200, damping: 50 }}
+    style={{ minWidth: '800px' }}
+    className={cn(
+      'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent',
+      visible && 'bg-white/80 dark:bg-neutral-950/80',
+      className
+    )}
+  >
+    {children}
+  </motion.div>
+);
 
-  // Initialise theme from localStorage or system preference
-  useEffect(() => {
-    const stored = localStorage.getItem('vela-theme');
-    if (stored) {
-      setIsDark(stored === 'dark');
-    } else {
-      setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
-  }, []);
+const NavLinks = ({ onItemClick }) => {
+  const [hovered, setHovered] = useState(null);
+  return (
+    <motion.div
+      onMouseLeave={() => setHovered(null)}
+      className="absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2"
+    >
+      {NAV_ITEMS.map((item, idx) => (
+        <a
+          key={`link-${idx}`}
+          href={item.link}
+          onMouseEnter={() => setHovered(idx)}
+          onClick={onItemClick}
+          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+        >
+          {hovered === idx && (
+            <motion.div
+              layoutId="hovered"
+              className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+            />
+          )}
+          <span className="relative z-20">{item.name}</span>
+        </a>
+      ))}
+    </motion.div>
+  );
+};
 
-  // Apply theme to <html> and persist
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('vela-theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
+const MobileNav = ({ children, className, visible }) => (
+  <motion.div
+    animate={{
+      backdropFilter: visible ? 'blur(10px)' : 'none',
+      boxShadow: visible
+        ? '0 0 24px rgba(34,42,53,0.06),0 1px 1px rgba(0,0,0,0.05),0 0 0 1px rgba(34,42,53,0.04),0 0 4px rgba(34,42,53,0.08),0 16px 68px rgba(47,48,55,0.05),0 1px 0 rgba(255,255,255,0.1) inset'
+        : 'none',
+      width: visible ? '90%' : '100%',
+      paddingRight: visible ? '12px' : '0px',
+      paddingLeft: visible ? '12px' : '0px',
+      borderRadius: visible ? '20px' : '2rem',
+      y: visible ? 20 : 0,
+    }}
+    transition={{ type: 'spring', stiffness: 200, damping: 50 }}
+    className={cn(
+      'relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden',
+      visible && 'bg-white/80 dark:bg-neutral-950/80',
+      className
+    )}
+  >
+    {children}
+  </motion.div>
+);
 
-  // Scroll shadow
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+// ─── Main export — the only thing you need to import ─────────────────────────
+export const AppNavbar = () => {
+  const [dark, setDark] = useState(false);
+  const ref = useRef(null);
+  const { scrollY } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
+  const [visible, setVisible] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Close menu on outside click
-  useEffect(() => {
-    if (!menuOpen) return;
-    const handleOutside = (e) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(e.target) &&
-        !menuButtonRef.current.contains(e.target)
-      ) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleOutside);
-    return () => document.removeEventListener('mousedown', handleOutside);
-  }, [menuOpen]);
-  // Close menu on Escape key
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'Escape' && menuOpen) {
-        setMenuOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [menuOpen]);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [menuOpen]);
-
-  const toggleTheme = useCallback(() => setIsDark((prev) => !prev), []);
-  const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  useMotionValueEvent(scrollY, 'change', (latest) => setVisible(latest > 100));
 
   return (
-    <div className="w-full">
-      <header
-        style={{ paddingTop: 'env(safe-area-inset-top)' }}
-        className={`fixed inset-x-0 top-0 z-50 overflow-x-hidden transition-all duration-300 ease-in-out ${
-          isDark
-            ? scrolled
-              ? 'bg-surface shadow-[0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-md'
-              : 'bg-[#0d1117]'
-            : scrolled
-              ? 'bg-white/95 shadow-[0_1px_0_0_rgba(0,0,0,0.08)] backdrop-blur-md'
-              : 'border-b border-gray-100 bg-white'
-        }`}
-        role="banner"
-      >
-        <div className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="flex h-14 items-center justify-between gap-2 sm:h-15 sm:gap-4 lg:gap-6">
-            <a
-              href="/"
-              className="flex shrink-0 items-center gap-2.5 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              aria-label="VelaForge - go to homepage"
-            >
-              {/* Logo mark */}
-              <img
-                src={isDark ? WhiteLettersLogo : Logo}
-                alt="Company logo"
-                width="150"
-                height="56"
-                className="h-8 w-auto max-w-30 sm:h-9 sm:max-w-37.5 lg:h-10 lg:max-w-none"
+    <motion.div ref={ref} className="fixed inset-x-0 top-0 z-40 w-full">
+      {/* ── Desktop ── */}
+      <NavBody visible={visible}>
+        {/* Logo */}
+        <a
+          href="#"
+          className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal"
+        >
+          <img
+            src={!dark ? Logo : WhiteLettersLogo}
+            alt="logo"
+            width={75}
+            height={50}
+          />
+        </a>
+
+        {/* Nav links */}
+        <NavLinks />
+
+        {/* Right actions */}
+        <div className="relative z-20 flex items-center gap-2">
+          <ThemeToggle dark={dark} setDark={setDark} />
+        </div>
+      </NavBody>
+
+      {/* ── Mobile ── */}
+      <MobileNav visible={visible}>
+        <div className="flex w-full flex-row items-center justify-between px-2">
+          {/* Logo */}
+          <a href="#" className="flex items-center space-x-2">
+            <img
+              src={!dark ? Logo : WhiteLettersLogo}
+              alt="logo"
+              width={100}
+              height={50}
+            />
+            <span className="font-medium text-black dark:text-white"></span>
+          </a>
+
+          {/* Right: theme toggle + hamburger */}
+          <div className="flex items-center gap-2">
+            <ThemeToggle dark={dark} setDark={setDark} />
+            {mobileOpen ? (
+              <IconX
+                className="cursor-pointer text-black dark:text-white"
+                onClick={() => setMobileOpen(false)}
               />
-            </a>
-            {/* ── Desktop nav ──────────────────────────────────── */}
-            <nav
-              aria-label="Primary navigation"
-              className="hidden md:flex md:items-center md:gap-0.5 lg:gap-1"
-            >
-              {NAV_LINKS.map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  className={`relative rounded-md px-2.5 py-1.5 text-sm font-medium tracking-wide transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent lg:px-3.5 ${
-                    isDark
-                      ? 'text-gray-300 hover:bg-white/6 hover:text-white'
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
-                  }`}
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
-
-            {/* ── Right controls ───────────────────────────────── */}
-            <div className="flex items-center gap-2">
-              {/* Theme toggle */}
-              <button
-                type="button"
-                onClick={toggleTheme}
-                aria-label={
-                  isDark ? 'Switch to light mode' : 'Switch to dark mode'
-                }
-                aria-pressed={isDark}
-                className={`flex h-10 w-10 items-center justify-center rounded-md transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-9 sm:w-9 ${
-                  isDark
-                    ? 'text-gray-400 hover:bg-white/6 hover:text-white'
-                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
-                } `}
-              >
-                {isDark ? (
-                  <SunIcon className="h-4.5 w-4.5" />
-                ) : (
-                  <MoonIcon className="h-4.5 w-4.5" />
-                )}
-              </button>
-
-              {/* Mobile menu button */}
-              <button
-                ref={menuButtonRef}
-                type="button"
-                onClick={toggleMenu}
-                aria-label={
-                  menuOpen ? 'Close navigation menu' : 'Open navigation menu'
-                }
-                aria-expanded={menuOpen}
-                aria-controls="mobile-menu"
-                className={`flex h-10 w-10 items-center justify-center rounded-md transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-9 sm:w-9 md:hidden ${
-                  isDark
-                    ? 'text-gray-400 hover:bg-white/6 hover:text-white'
-                    : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'
-                } `}
-              >
-                <MenuIcon open={menuOpen} className="h-5 w-5" />
-              </button>
-            </div>
+            ) : (
+              <IconMenu2
+                className="cursor-pointer text-black dark:text-white"
+                onClick={() => setMobileOpen(true)}
+              />
+            )}
           </div>
         </div>
 
-        {/* ── Mobile menu ──────────────────────────────────────── */}
-        <div
-          id="mobile-menu"
-          ref={menuRef}
-          role="dialog"
-          aria-label="Navigation menu"
-          aria-modal="true"
-          className={`w-full overflow-hidden border-t transition-all duration-300 ease-in-out md:hidden ${
-            isDark ? 'border-white/6 bg-[#0d1117]' : 'border-gray-100 bg-white'
-          } ${
-            menuOpen
-              ? 'max-h-96 opacity-100'
-              : 'pointer-events-none max-h-0 opacity-0'
-          }`}
-        >
-          <nav
-            aria-label="Mobile navigation"
-            className="mx-auto flex max-w-7xl flex-col gap-0.5 px-3 py-3 sm:px-6"
-          >
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                onClick={closeMenu}
-                className={`block rounded-md px-3 py-3 text-base font-medium transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset sm:text-sm ${
-                  isDark
-                    ? 'text-gray-300 hover:bg-white/6 hover:text-white'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                }`}
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </header>
-    </div>
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start gap-4 rounded-2xl bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,42,53,0.06),0_1px_1px_rgba(0,0,0,0.05),0_16px_68px_rgba(47,48,55,0.05)] dark:bg-neutral-950"
+            >
+              {NAV_ITEMS.map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.link}
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full text-sm font-medium text-neutral-700 transition-colors hover:text-black dark:text-neutral-300 dark:hover:text-white"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </MobileNav>
+    </motion.div>
   );
-}
+};
+
+export default AppNavbar;

@@ -1,5 +1,5 @@
 //component imports
-import Header from '../Components/Header';
+import AppNavbar from '../Components/Header';
 import Features from '../Components/HomePage/Features';
 //image imports
 import DashboardImage from '../assets/images/homePage/photo-1551288049-bebda4e38f71.webp';
@@ -116,7 +116,7 @@ const Home = () => {
 
   return (
     <main className="dark:bg-surface select-none">
-      <Header />
+      <AppNavbar />
 
       {/* ── HERO ── */}
       <section
