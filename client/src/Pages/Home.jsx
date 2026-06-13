@@ -296,7 +296,7 @@ const Home = () => {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section
+      {/* <section
         id="testimonials"
         aria-labelledby="testimonials-heading"
         className="dark:bg-bg-dark bg-white py-16 sm:py-20 lg:py-28"
@@ -389,7 +389,7 @@ const Home = () => {
             ))}
           </ul>
         </div>
-      </section>
+      </section> */}
 
       {/* ── TECH STACK ── */}
       <section className="dark:bg-bg-dark bg-white py-16 sm:py-20">
