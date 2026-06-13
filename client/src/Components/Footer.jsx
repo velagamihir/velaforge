@@ -18,15 +18,15 @@ export default function Footer() {
               <img
                 src={Logo}
                 alt="logo of the company in the footer"
-                width="200" // Add this (use your actual pixel width)
-                height="80" // Add this (use your actual pixel height)
+                width="214"
+                height="80"
                 className="block h-16 w-auto sm:h-20 dark:hidden"
               />
               <img
                 src={WhiteLettersLogo}
                 alt="Logo of the company in white letters for better visibility in dark mode"
-                width="200" // Add this
-                height="80" // Add this
+                width="214"
+                height="80"
                 className="hidden h-16 w-auto sm:h-20 dark:block"
               />
             </div>

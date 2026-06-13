@@ -1,34 +1,29 @@
-'use client';
-import { IconMenu2, IconMoon, IconSun, IconX } from '@tabler/icons-react';
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
-import { cn } from './../lib/utils';
+"use client";
+import { IconMenu2, IconMoon, IconSun, IconX } from "@tabler/icons-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { cn } from "./../lib/utils";
 //logo imports
-import Logo from '../assets/images/Logos/logo.avif';
-import WhiteLettersLogo from '../assets/images/Logos/WhiteLettersLogo.avif';
-import { NAV_ITEMS } from '../data/NAV_ITEMS';
+import Logo from "../assets/images/Logos/logo.avif";
+import WhiteLettersLogo from "../assets/images/Logos/WhiteLettersLogo.avif";
+import { NAV_ITEMS } from "../data/NAV_ITEMS";
 // ─── Theme Toggle ─────────────────────────────────────────────────────────────
 const ThemeToggle = ({ className, dark, setDark }) => {
   useEffect(() => {
-    const stored = localStorage.getItem('theme');
+    const stored = localStorage.getItem("theme");
     const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)'
+      "(prefers-color-scheme: dark)",
     ).matches;
-    const isDark = stored ? stored === 'dark' : prefersDark;
+    const isDark = stored ? stored === "dark" : prefersDark;
     setDark(isDark);
-    document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle("dark", isDark);
   }, []);
 
   const toggle = () => {
     const next = !dark;
     setDark(next);
-    document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem('theme', next ? 'dark' : 'light');
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
   };
 
   return (
@@ -38,11 +33,11 @@ const ThemeToggle = ({ className, dark, setDark }) => {
       whileHover={{ scale: 1.1 }}
       aria-label="Toggle dark mode"
       className={cn(
-        'relative flex h-8 w-8 items-center justify-center rounded-full',
-        'bg-gray-100 text-gray-700 hover:bg-gray-200',
-        'dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700',
-        'transition-colors duration-200',
-        className
+        "relative flex h-8 w-8 items-center justify-center rounded-full",
+        "bg-gray-100 text-gray-700 hover:bg-gray-200",
+        "dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700",
+        "transition-colors duration-200",
+        className,
       )}
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -78,19 +73,19 @@ const ThemeToggle = ({ className, dark, setDark }) => {
 const NavBody = ({ children, className, visible }) => (
   <motion.div
     animate={{
-      backdropFilter: visible ? 'blur(10px)' : 'none',
+      backdropFilter: visible ? "blur(10px)" : "none",
       boxShadow: visible
-        ? '0 0 24px rgba(34,42,53,0.06),0 1px 1px rgba(0,0,0,0.05),0 0 0 1px rgba(34,42,53,0.04),0 0 4px rgba(34,42,53,0.08),0 16px 68px rgba(47,48,55,0.05),0 1px 0 rgba(255,255,255,0.1) inset'
-        : 'none',
-      width: visible ? '40%' : '100%',
+        ? "0 0 24px rgba(34,42,53,0.06),0 1px 1px rgba(0,0,0,0.05),0 0 0 1px rgba(34,42,53,0.04),0 0 4px rgba(34,42,53,0.08),0 16px 68px rgba(47,48,55,0.05),0 1px 0 rgba(255,255,255,0.1) inset"
+        : "none",
+      width: visible ? "40%" : "100%",
       y: visible ? 20 : 0,
     }}
-    transition={{ type: 'spring', stiffness: 200, damping: 50 }}
-    style={{ minWidth: '800px' }}
+    transition={{ type: "spring", stiffness: 200, damping: 50 }}
+    style={{ minWidth: "800px" }}
     className={cn(
-      'relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent',
-      visible && 'bg-white/80 dark:bg-neutral-950/80',
-      className
+      "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
+      visible && "bg-white/80 dark:bg-neutral-950/80",
+      className,
     )}
   >
     {children}
@@ -128,21 +123,21 @@ const NavLinks = ({ onItemClick }) => {
 const MobileNav = ({ children, className, visible }) => (
   <motion.div
     animate={{
-      backdropFilter: visible ? 'blur(10px)' : 'none',
+      backdropFilter: visible ? "blur(10px)" : "none",
       boxShadow: visible
-        ? '0 0 24px rgba(34,42,53,0.06),0 1px 1px rgba(0,0,0,0.05),0 0 0 1px rgba(34,42,53,0.04),0 0 4px rgba(34,42,53,0.08),0 16px 68px rgba(47,48,55,0.05),0 1px 0 rgba(255,255,255,0.1) inset'
-        : 'none',
-      width: visible ? '90%' : '100%',
-      paddingRight: visible ? '12px' : '0px',
-      paddingLeft: visible ? '12px' : '0px',
-      borderRadius: visible ? '20px' : '2rem',
+        ? "0 0 24px rgba(34,42,53,0.06),0 1px 1px rgba(0,0,0,0.05),0 0 0 1px rgba(34,42,53,0.04),0 0 4px rgba(34,42,53,0.08),0 16px 68px rgba(47,48,55,0.05),0 1px 0 rgba(255,255,255,0.1) inset"
+        : "none",
+      width: visible ? "90%" : "100%",
+      paddingRight: visible ? "12px" : "0px",
+      paddingLeft: visible ? "12px" : "0px",
+      borderRadius: visible ? "20px" : "2rem",
       y: visible ? 20 : 0,
     }}
-    transition={{ type: 'spring', stiffness: 200, damping: 50 }}
+    transition={{ type: "spring", stiffness: 200, damping: 50 }}
     className={cn(
-      'relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden',
-      visible && 'bg-white/80 dark:bg-neutral-950/80',
-      className
+      "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
+      visible && "bg-white/80 dark:bg-neutral-950/80",
+      className,
     )}
   >
     {children}
@@ -152,29 +147,32 @@ const MobileNav = ({ children, className, visible }) => (
 // ─── Main export — the only thing you need to import ─────────────────────────
 export const AppNavbar = () => {
   const [dark, setDark] = useState(false);
-  const ref = useRef(null);
-  const { scrollY } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
   const [visible, setVisible] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useMotionValueEvent(scrollY, 'change', (latest) => setVisible(latest > 100));
+  // Optimized scroll listener using passive event to avoid forced reflows
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.div ref={ref} className="fixed inset-x-0 top-0 z-40 w-full">
+    <motion.div className="fixed inset-x-0 top-0 z-40 w-full">
       {/* ── Desktop ── */}
       <NavBody visible={visible}>
         {/* Logo */}
         <a
-          href="#"
+          href="/"
           className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal"
         >
           <img
             src={!dark ? Logo : WhiteLettersLogo}
             alt="logo"
-            width={75}
+            width={134}
             height={50}
           />
         </a>
@@ -192,11 +190,11 @@ export const AppNavbar = () => {
       <MobileNav visible={visible}>
         <div className="flex w-full flex-row items-center justify-between px-2">
           {/* Logo */}
-          <a href="#" className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-2">
             <img
               src={!dark ? Logo : WhiteLettersLogo}
               alt="logo"
-              width={100}
+              width={134}
               height={50}
             />
             <span className="font-medium text-black dark:text-white"></span>

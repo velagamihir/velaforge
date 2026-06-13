@@ -18,163 +18,163 @@ import {
   Utensils,
   UtensilsCrossed,
   Zap,
-} from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 //components import
-import Footer from '../Components/Footer';
-import AppNavbar from '../Components/Header';
+import Footer from "../Components/Footer";
+import AppNavbar from "../Components/Header";
 
 //questions for the faq
 
 const faqItems = [
   {
-    question: 'What industries do you work with?',
+    question: "What industries do you work with?",
     answer:
-      'We work across Real Estate, Healthcare, Education, Restaurants & Hospitality, E-Commerce, Startups, Professional Services, and many other sectors. Our process adapts to the needs of each industry.',
+      "We work across Real Estate, Healthcare, Education, Restaurants & Hospitality, E-Commerce, Startups, Professional Services, and many other sectors. Our process adapts to the needs of each industry.",
   },
   {
-    question: 'Can you redesign an existing website?',
+    question: "Can you redesign an existing website?",
     answer:
       "Absolutely. We perform a comprehensive audit of your current site's design, performance, accessibility, and SEO before creating a modernization strategy tailored to your goals.",
   },
   {
-    question: 'Do you build custom web applications?',
+    question: "Do you build custom web applications?",
     answer:
-      'Yes. From SaaS platforms and internal dashboards to customer portals and workflow systems, we build custom web applications designed around your business requirements.',
+      "Yes. From SaaS platforms and internal dashboards to customer portals and workflow systems, we build custom web applications designed around your business requirements.",
   },
   {
-    question: 'How long does a typical project take?',
+    question: "How long does a typical project take?",
     answer:
-      'Timelines vary depending on complexity. Smaller marketing websites often take 3-4 weeks, while larger web applications may require several months for design, development, testing, and deployment.',
+      "Timelines vary depending on complexity. Smaller marketing websites often take 3-4 weeks, while larger web applications may require several months for design, development, testing, and deployment.",
   },
   {
-    question: 'Do you provide maintenance after launch?',
+    question: "Do you provide maintenance after launch?",
     answer:
-      'Yes. We offer ongoing maintenance, security updates, monitoring, performance optimization, content updates, and technical support after launch, for a period of 3 months.',
+      "Yes. We offer ongoing maintenance, security updates, monitoring, performance optimization, content updates, and technical support after launch, for a period of 3 months.",
   },
   {
-    question: 'Can you help improve website performance and SEO?',
+    question: "Can you help improve website performance and SEO?",
     answer:
-      'Yes. We optimize Core Web Vitals, technical SEO, page speed, accessibility, structured data, and overall user experience to improve visibility and conversions.',
+      "Yes. We optimize Core Web Vitals, technical SEO, page speed, accessibility, structured data, and overall user experience to improve visibility and conversions.",
   },
 ];
 const industryCards = [
   {
     icon: <Building2 />,
-    title: 'Real Estate',
-    desc: 'Property listings, virtual tours, and lead-capture platforms that convert.',
+    title: "Real Estate",
+    desc: "Property listings, virtual tours, and lead-capture platforms that convert.",
   },
   {
     icon: <HospitalIcon />,
-    title: 'Healthcare',
-    desc: 'HIPAA-conscious patient portals, appointment systems, and telehealth apps.',
+    title: "Healthcare",
+    desc: "HIPAA-conscious patient portals, appointment systems, and telehealth apps.",
   },
   {
     icon: <GraduationCap />,
-    title: 'Education',
-    desc: 'Learning management systems, course platforms, and institutional sites.',
+    title: "Education",
+    desc: "Learning management systems, course platforms, and institutional sites.",
   },
   {
     icon: <UtensilsCrossed />,
-    title: 'Restaurants & Hospitality',
-    desc: 'Online ordering, reservations, and branded guest experiences.',
+    title: "Restaurants & Hospitality",
+    desc: "Online ordering, reservations, and branded guest experiences.",
   },
   {
     icon: <ShoppingCart />,
-    title: 'E-Commerce',
-    desc: 'High-performance storefronts optimized for discovery and conversions.',
+    title: "E-Commerce",
+    desc: "High-performance storefronts optimized for discovery and conversions.",
   },
   {
     icon: <Rocket />,
-    title: 'Startups',
-    desc: 'MVPs, landing pages, and growth-ready architectures for fast-moving teams.',
+    title: "Startups",
+    desc: "MVPs, landing pages, and growth-ready architectures for fast-moving teams.",
   },
   {
     icon: <BriefcaseBusiness />,
-    title: 'Professional Services',
-    desc: 'Authority-building websites for law, finance, consulting, and more.',
+    title: "Professional Services",
+    desc: "Authority-building websites for law, finance, consulting, and more.",
   },
   {
     icon: <MapPin />,
-    title: 'Local Businesses',
-    desc: 'Local SEO-optimized sites that drive foot traffic and community trust.',
+    title: "Local Businesses",
+    desc: "Local SEO-optimized sites that drive foot traffic and community trust.",
   },
 ];
 
 const features = [
   {
     icon: Zap,
-    title: 'Performance Focused',
-    description: 'Fast-loading websites optimized for Core Web Vitals.',
+    title: "Performance Focused",
+    description: "Fast-loading websites optimized for Core Web Vitals.",
   },
   {
     icon: Search,
-    title: 'SEO-First Development',
-    description: 'Built for discoverability and organic growth.',
+    title: "SEO-First Development",
+    description: "Built for discoverability and organic growth.",
   },
   {
     icon: Smartphone,
-    title: 'Mobile-First Design',
-    description: 'Exceptional experiences on every device.',
+    title: "Mobile-First Design",
+    description: "Exceptional experiences on every device.",
   },
   {
     icon: Layers3,
-    title: 'Scalable Architecture',
-    description: 'Ready to grow alongside your business.',
+    title: "Scalable Architecture",
+    description: "Ready to grow alongside your business.",
   },
   {
     icon: Sparkles,
-    title: 'Modern User Experience',
-    description: 'Clean interfaces designed for engagement.',
+    title: "Modern User Experience",
+    description: "Clean interfaces designed for engagement.",
   },
   {
     icon: LifeBuoy,
-    title: 'Reliable Support',
-    description: 'Long-term partnership beyond launch.',
+    title: "Reliable Support",
+    description: "Long-term partnership beyond launch.",
   },
 ];
 const INDUSTRIES = [
   {
-    id: 'healthcare',
-    label: 'Healthcare',
+    id: "healthcare",
+    label: "Healthcare",
     icon: Hospital,
     angle: -75,
     dist: 1.1,
   },
   {
-    id: 'education',
-    label: 'Education',
+    id: "education",
+    label: "Education",
     icon: GraduationCap,
     angle: -28,
     dist: 1.1,
   },
   {
-    id: 'ecommerce',
-    label: 'E-Commerce',
+    id: "ecommerce",
+    label: "E-Commerce",
     icon: ShoppingCart,
 
     angle: 18,
     dist: 1.05,
   },
-  { id: 'localbiz', label: 'Local Biz', icon: Store, angle: 52, dist: 1.2 },
+  { id: "localbiz", label: "Local Biz", icon: Store, angle: 52, dist: 1.2 },
   {
-    id: 'professional',
-    label: 'Professional',
+    id: "professional",
+    label: "Professional",
     icon: BriefcaseBusiness,
     angle: 108,
     dist: 0.95,
   },
-  { id: 'startups', label: 'Startups', icon: Rocket, angle: 148, dist: 1.1 },
+  { id: "startups", label: "Startups", icon: Rocket, angle: 148, dist: 1.1 },
   {
-    id: 'hospitality',
-    label: 'Hospitality',
+    id: "hospitality",
+    label: "Hospitality",
     icon: Utensils,
     angle: 195,
     dist: 0.95,
   },
   {
-    id: 'realestate',
-    label: 'Real Estate',
+    id: "realestate",
+    label: "Real Estate",
     icon: Building,
     angle: 242,
     dist: 1.05,
@@ -241,7 +241,7 @@ export default function IndustriesSection() {
           id="industries-heading"
           className="dark:text-text-light text-center text-[clamp(1.9rem,5vw,3.1rem)] leading-tight font-bold text-slate-900"
         >
-          Digital Solutions Built for{' '}
+          Digital Solutions Built for{" "}
           <span className="text-primary-light">Every Industry</span>
         </h2>
 
@@ -264,18 +264,7 @@ export default function IndustriesSection() {
           ref={wrapRef}
           className="mt-30 w-full max-w-225"
           role="img"
-          aria-label={`Industries served: ${INDUSTRIES.map((i) => i.label).join(', ')}`}
-          onMouseMove={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-
-            setMouse({
-              x: ((e.clientX - rect.left) / rect.width) * w,
-              y: ((e.clientY - rect.top) / rect.height) * h,
-            });
-          }}
-          onMouseLeave={() => {
-            setMouse({ x: -9999, y: -9999 });
-          }}
+          aria-label={`Industries served: ${INDUSTRIES.map((i) => i.label).join(", ")}`}
         >
           <svg
             viewBox={`0 0 ${w} ${h}`}
@@ -450,7 +439,7 @@ export default function IndustriesSection() {
                 <g
                   key={ind.id}
                   style={{
-                    transition: 'transform 120ms linear',
+                    transition: "transform 120ms linear",
                   }}
                 >
                   <rect
@@ -546,14 +535,14 @@ export default function IndustriesSection() {
           {/* Row 1 */}
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              { abbr: 'Re', name: 'React' },
-              { abbr: 'N', name: 'Next.js' },
-              { abbr: 'Tw', name: 'Tailwind CSS' },
-              { abbr: 'No', name: 'Node.js' },
-              { abbr: 'Ex', name: 'Express' },
-              { abbr: 'Mo', name: 'MongoDB' },
-              { abbr: 'Pg', name: 'PostgreSQL' },
-              { abbr: 'Fi', name: 'Firebase' },
+              { abbr: "Re", name: "React" },
+              { abbr: "N", name: "Next.js" },
+              { abbr: "Tw", name: "Tailwind CSS" },
+              { abbr: "No", name: "Node.js" },
+              { abbr: "Ex", name: "Express" },
+              { abbr: "Mo", name: "MongoDB" },
+              { abbr: "Pg", name: "PostgreSQL" },
+              { abbr: "Fi", name: "Firebase" },
             ].map((tech, index) => (
               <div
                 key={index}
@@ -572,8 +561,8 @@ export default function IndustriesSection() {
           {/* Row 2 */}
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              { abbr: 'Ve', name: 'Vercel' },
-              { abbr: 'Aw', name: 'AWS' },
+              { abbr: "Ve", name: "Vercel" },
+              { abbr: "Aw", name: "AWS" },
             ].map((tech, index) => (
               <div
                 key={index}

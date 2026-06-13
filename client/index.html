@@ -9,16 +9,11 @@
       name="description"
       content="VelaForge Technologies builds modern websites, web applications, and digital solutions for businesses. Transform your ideas into powerful digital experiences."
     />
-    <link
-      rel="preload"
-      href="/src/App.css"
-      as="style"
-      onload="
-        this.onload = null;
-        this.rel = 'stylesheet';
-      "
-    />
-    <noscript><link rel="stylesheet" href="/src/App.css" /></noscript>
+    <!-- Critical CSS inline is handled by Vite -->
+    <link rel="stylesheet" href="./src/App.css" />
+    <!-- Preconnect to reduce DNS lookup time -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://cdn.example.com" />
     <meta
       name="keywords"
       content="web development, software development, react developer, vite, tailwind css, web applications, digital solutions, VelaForge Technologies"
